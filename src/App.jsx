@@ -2,6 +2,8 @@
 import { useState, useEffect, useCallback } from "react";
 import "./App.css";
 
+const API_BASE = "https://distributed-kv-backend.onrender.com";
+
 export default function App() {
   const [keyName, setKeyName] = useState("");
   const [value, setValue] = useState("");
@@ -19,7 +21,7 @@ export default function App() {
   // LIVE NODE HEALTH MONITORING
   const checkNodeHealth = useCallback(async () => {
     try {
-      const response = await fetch("/health", {
+      const response = await fetch(`${API_BASE}/health`, {
         signal: AbortSignal.timeout(3000),
       });
 
@@ -89,7 +91,7 @@ export default function App() {
       }
 
       const response = await fetch(
-        `/store/${encodeURIComponent(key)}`,
+       `${API_BASE}/store/${encodeURIComponent(key)}`
         options
       );
 
